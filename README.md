@@ -1,4 +1,4 @@
-# C-PAC BIDS Application
+# C-PAC BIDS Application ![](https://travis-ci.org/TheEtkinLab/CPAC.svg?branch=master)
 
 ## Documentation
 Extensive information can be found in the [C-PAC User Guide](http://fcp-indi.github.com/docs/user/index.html). 
