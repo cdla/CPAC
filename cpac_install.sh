@@ -33,7 +33,7 @@ ubuntu_packages=("cmake" "curl" "git" "graphviz" "graphviz-dev" "gsl-bin" "libca
     "libxp6" "libxp-dev" "make" "mesa-common-dev" "mesa-utils" "netpbm" "pkg-config" \
     "build-essential" "xvfb" "xauth" "libgl1-mesa-dri" "tcsh" "unzip" "zlib1g-dev" "m4")
 
-conda_packages=("pandas" "cython" "numpy==1.11" "scipy" "matplotlib" "networkx" "traits" "pyyaml" "jinja2==2.8" "nose" "ipython" "pip" "wxpython")
+conda_packages=("pandas" "cython" "numpy==1.13" "scipy" "matplotlib" "networkx" "traits" "pyyaml" "jinja2==2.8" "nose" "ipython" "pip" "wxpython")
 
 pip_packages=("future" "prov" "simplejson" "lockfile" "pygraphviz" "nibabel" "nipype" "patsy" "memory_profiler" "psutil" "configparser" "indi_tools")
 
@@ -909,7 +909,7 @@ function install_cpac {
     cd /tmp
 
     # update this for new C-PAC
-    latest_version=v1.0.1a
+    latest_version=1.0.1b  # https://github.com/FCP-INDI/C-PAC/archive/1.0.1b.zip
     cpac_latest=C-PAC-${latest_version##v}
 
     wget https://github.com/FCP-INDI/C-PAC/archive/${latest_version}.tar.gz
