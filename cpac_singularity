@@ -3,12 +3,13 @@ From: mnarayan/cpac
 
 %help
 You are in the C-PAC container.
-exec /code/run.py -h
+/code/run.py -h
 
 %runscript
     echo "Running C-PAC!"
     echo "Arguments received: $*"
-    exec /code/run.py
+    exec echo "$@"
+    exec /code/run.py "$@"
     
 %post
     echo "Hello from inside the C-PAC container"
