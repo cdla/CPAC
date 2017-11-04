@@ -10,7 +10,13 @@ From: mnarayan/cpac
     echo "Arguments received: $*"
     exec echo "$@"
     exec /code/run.py "$@"
-    
+
+%labels
+Author zhifang.ye.fghm@gmail.com
+Build-date 03/11/2017
+Vendor Ubuntu
+Version 1.0.1b
+
 %post
     echo "Hello from inside the C-PAC container"
     echo "Install additional software here"
