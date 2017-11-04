@@ -1,2 +1,14 @@
 Bootstrap: docker
 From: mnarayan/cpac
+
+%help
+Help me. I'm in the C-PAC container.
+
+%runscript
+    echo "Running C-PAC!"
+    echo "Arguments received: $*"
+    exec echo "$@"
+    
+%post
+    echo "Hello from inside the C-PAC container"
+    echo "Install additional software here"
