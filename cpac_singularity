@@ -12,7 +12,7 @@ From: mnarayan/cpac
     exec /code/run.py "$@"
 
 %labels
-Author zhifang.ye.fghm@gmail.com
+Author mnarayan@users.noreply.github.com
 Build-date 03/11/2017
 Vendor Ubuntu
 Version 1.0.1b
