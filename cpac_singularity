@@ -2,8 +2,8 @@ Bootstrap: docker
 From: mnarayan/cpac
 
 %help
-You are in the C-PAC container.
-/code/run.py -h
+    echo "You are in the C-PAC container."
+    exec /code/run.py -h
 
 %runscript
     echo "Running C-PAC!"
