@@ -2,12 +2,13 @@ Bootstrap: docker
 From: mnarayan/cpac
 
 %help
-Help me. I'm in the C-PAC container.
+You are in the C-PAC container.
+exec /code/run.py -h
 
 %runscript
     echo "Running C-PAC!"
     echo "Arguments received: $*"
-    exec echo "$@"
+    exec /code/run.py
     
 %post
     echo "Hello from inside the C-PAC container"
