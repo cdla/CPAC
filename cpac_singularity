@@ -2,13 +2,12 @@ Bootstrap: docker
 From: mnarayan/cpac
 
 %help
-    echo "You are in the C-PAC container."
-    exec /code/run.py -h
+You are in the C-PAC container. To see help run
+singularity run TheEtkinLab-CPAC.simg -h
 
 %runscript
     echo "Running C-PAC!"
     echo "Arguments received: $*"
-    exec echo "$@"
     exec /code/run.py "$@"
 
 %labels
