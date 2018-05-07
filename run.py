@@ -70,6 +70,9 @@ parser.add_argument('--mem_gb', help='Amount of RAM available to the pipeline in
                                      ' if this is specified along with mem_mb, this flag will take precedence.')
 parser.add_argument('--save_working_dir', action='store_true',
                     help='Save the contents of the working directory.', default=False)
+parser.add_argument('--disable_file_logging', action='store_true',
+                    help='Disable file logging, this is useful for clusters that have disabled file locking.',
+                    default=False)
 parser.add_argument('--participant_label', help='The label of the participant'
                                                 ' that should be analyzed. The label '
                                                 'corresponds to sub-<participant_label> from the BIDS spec '
@@ -87,6 +90,11 @@ parser.add_argument('--participant_ndx', help='The index of the participant'
                     default=None)
 parser.add_argument('-v', '--version', action='version',
                     version='C-PAC BIDS-App version {}'.format(__version__))
+parser.add_argument('--bids_validator_config', help='JSON file specifying configuration of '
+                    'bids-validator: See https://github.com/INCF/bids-validator for more info')
+parser.add_argument('--skip_bids_validator',
+                    help='skips bids validation',
+                    action='store_true')
 
 # get the command line arguments
 args = parser.parse_args()
@@ -111,9 +119,17 @@ if not args.output_dir.lower().startswith("s3://") and not os.path.exists(args.o
     print("Error! Could not find {0}".format(args.output_dir))
     sys.exit(0)
 
-# validate input dir
-print("\nRunning BIDS validator")
-run("bids-validator %s" % args.bids_dir)
+# validate input dir (if skip_bids_validator is not set)
+if args.bids_validator_config:
+    print("\nRunning BIDS validator")
+    run("bids-validator --config {config} {bids_dir}".format(
+        config=args.bids_validator_config,
+        bids_dir=args.bids_dir))
+elif args.skip_bids_validator:
+    print('skipping bids-validator...')
+else:
+    print("\nRunning BIDS validator")
+    run("bids-validator {bids_dir}".format(bids_dir=args.bids_dir))
 
 # otherwise, if we are running group, participant, or dry run we
 # begin by conforming the configuration
@@ -154,7 +170,12 @@ if args.aws_output_creds:
     else:
         raise IOError("Could not find aws credentials {0}".format(args.aws_output_creds))
 
-if args.save_working_dir is not True:
+if args.disable_file_logging is True:
+    c['disable_log'] = True
+else:
+    c['disable_log'] = False
+
+if args.save_working_dir is True:
     if "s3://" not in args.output_dir.lower():
         c['removeWorkingDir'] = False
         c['workingDirectory'] = os.path.join(args.output_dir, "working")
